@@ -143,3 +143,27 @@ Then initialize these loader in rules key in webpack.config.js
 ```
 
 and now import "main.scss" in app.js file and run command "npm run build"
+
+------------------------------------------------------------------------------------
+
+Adding HTML and Images loader : This will move our index.html and images in dist folder too. First remove added css and js file from index.html and move index.html to src folder.
+
+install below packages
+
+- npm install --save-dev html-loader html-webpack-plugin file-loader
+- npm install --save-dev clean-webpack-plugin
+
+update your web.config.js file
+
+``` javascript
+     plugins: [
+        extractPlugin,
+        new UglifyJsPlugin(),
+        new HtmlWebpackPlugin({
+            template: 'src/index.html'
+        }),
+        new CleanWebpackPlugin(['dist'])
+    ]
+```
+Now npm run build & npm run build:prod and you can see all contents in dist folder. clean-webpack-plugin will remove whole dist folder every time webpack build prod.
+
