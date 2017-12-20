@@ -108,12 +108,38 @@ and after "module" key add below lines
     ]
 ```
 
+Using SCSS/SASS file in project 
+We can also use scss files for our css styles and import them in project. and For export CSSs in seperate file we need extract-text plugin. For this install below package
 
+- npm install babel-core babel-loader babel-preset-env sass-loader node-sass scss-loader extract-text-webpack-plugin --save-dev
 
-babel-loader
-node-sass
-css-loader
-sass-loader
-style-loader
-babel-core
-babel-preset-es2015
+Then initialize these loader in rules key in webpack.config.js
+
+``` javascript
+    var ExtractTextPlugins = require('extract-text-webpack-plugin');
+
+    var extractPlugin = new ExtractTextPlugins({
+        filename: 'main.css'
+    });
+```
+
+``` javascript
+    {
+        test: /\.scss$/,
+        use: extractPlugin.extract({
+            use: [
+                'css-loader',
+                'sass-loader'
+            ]
+        })
+    }
+```
+
+``` javascript
+    plugins: [
+        extractPlugin,
+        new UglifyJsPlugin()
+    ]
+```
+
+and now import "main.css" in app.js file
