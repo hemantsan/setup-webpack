@@ -55,8 +55,18 @@ module.exports = {
         extractPlugin,
         new UglifyJsPlugin(),
         new HtmlWebpackPlugin({
+            filename: 'index.html',
             template: 'src/index.html'
         }),
-        new CleanWebpackPlugin(['dist'])
+        new HtmlWebpackPlugin({
+            filename: 'featured-games.html',
+            template: 'src/featured.html',
+            chunks: []
+        }),
+        new CleanWebpackPlugin(['dist']),
+        new webpack.ProvidePlugin({
+            $: 'jquery',
+            jQuery: 'jquery'
+        })
     ]
 };
