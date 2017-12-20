@@ -142,4 +142,4 @@ Then initialize these loader in rules key in webpack.config.js
     ]
 ```
 
-and now import "main.css" in app.js file
+and now import "main.scss" in app.js file and run command "npm run build"
