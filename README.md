@@ -38,11 +38,77 @@ Now edit package.json
 Now again run "npm run build". This time you will se a message in terminal/cmd "webpack: Compiled successfully." and Project is running at http://localhost:8080. Copy this line and fire in browser's address bar. Then you see project running same as previous but this time it is getting served from a server and if you check in network tab of chrome dev tool/firebug you can see all files are loading and their sizes are showing up.
 
 
+Using webpack.copnfig.js : As for now we have written build scripts in package.json file which is good if we have basic configuration, but when project goes large and we need some other files too then we can use webpack.config.js and we write configuration about webpack and webpack server in this config file.
+add a file "webpack.copnfig.js" in project root folder and add below lines in this.
 
+``` javascript
 
+    var path = require('path');
+
+    module.exports = {
+        entry: './src/js/app.js',
+        output: {
+            path: path.resolve(__dirname, 'dist'),
+            filename: 'bundle.js',
+            publicPath: '/dist'
+        },
+    };
+
+```
+
+here config object is exported. and this is basic config.
+- entry : entry point of app.
+- output.path : the output path of app.
+- output.filename : filename of output app file.
+- output.publicPath : directory for all assest in app/project.
+- var path : it is pre-defined package comes with node_modules which provides various functions regarding directory.
+
+Now again run command "npm run build" and see if its working.
+
+So project is getting its js file from bundle.js built by webpack. Now we will add css in project using webpack. To do this we need some packages installed. "css-loader" and "style-loader"
+
+- npm install css-loader style-loader --save-dev 
+
+these loaders load css file and bundle them with exported js file.
+
+Edit webpack.config.js file for importing css using these loaders.
+Add below object after output key.
+``` javascript
+    module: {
+        rules: [{
+            test: /\.css$/,
+            use: [
+                'style-loader',
+                'css-loader'
+            ]
+        }]
+    }
+```
 
 
 Loaders : loader do the job of loading different extensions files like scss, css, js, html etc. Webpack loads the last defined loader first then the first one (In Array form). 
+
+> Note : webpack loads its loader from last to first in order. For eg. webpack will first load "css-loader" and then "style-loader".
+
+We can also minify/uglify our js for better performance and optimization.
+
+- npm i -D --save-dev uglifyjs-webpack-plugin
+
+init UglifyJsPlugin variable in webpack.config.js
+
+``` javascript
+    const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+```
+
+and after "module" key add below lines
+
+``` javascript
+     plugins: [
+        new UglifyJsPlugin()
+    ]
+```
+
+
 
 babel-loader
 node-sass
