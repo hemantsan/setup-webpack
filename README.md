@@ -167,3 +167,14 @@ update your web.config.js file
 ```
 Now npm run build & npm run build:prod and you can see all contents in dist folder. clean-webpack-plugin will remove whole dist folder every time webpack build prod.
 
+------------------------------------------------------------------------------------
+
+Adding jquery : 
+
+- npm install --save jquery
+then import 'jquery' in app.js.
+
+Adding Bootstrap : 
+
+- import 'bootstrap.css'
+in site.scss file
