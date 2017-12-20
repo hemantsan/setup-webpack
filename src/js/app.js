@@ -1,0 +1,1 @@
+spnVersion.innerHTML = "1.0.0 beta";
